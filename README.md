@@ -2,10 +2,11 @@
   AI-Powered Automated Content Repurposing Enginr transforms long-form videos into viral short-form clips with emotional peak detection, dynamic captions, and smart vertical cropping — all powered by AI.
   
 **🔥 Overview**
-Content creators spend hours manually rewatching footage, identifying engaging moments, clipping segments, reframing to vertical, and adding captions.
-AttentionX automates the entire pipeline, turning long videos into ready-to-publish short-form content in minutes.
+  Content creators spend hours manually rewatching footage, identifying engaging moments, clipping segments, reframing to vertical, and adding captions.
+  AttentionX automates the entire pipeline, turning long videos into ready-to-publish short-form content in minutes.
 
 **📸 Screenshots**
+
 1.
 <img width="1920" height="1080" alt="1" src="https://github.com/user-attachments/assets/ea1a91c6-2c06-499f-95c2-9049771ee4e4" />
 
