@@ -8,15 +8,18 @@
 **📸 Screenshots**
 
 
-1.<img width="1920" height="1080" alt="1" src="https://github.com/user-attachments/assets/ea1a91c6-2c06-499f-95c2-9049771ee4e4" />
+### 🏠 Landing Page
+<img width="1920" height="1080" alt="1" src="https://github.com/user-attachments/assets/ea1a91c6-2c06-499f-95c2-9049771ee4e4" />
 
-2.<img width="1920" height="1080" alt="2" src="https://github.com/user-attachments/assets/2b50dcd0-b6ec-40c3-a333-88707ccdf469" />
+### 📤 Upload Flow
+<img width="1920" height="1080" alt="2" src="https://github.com/user-attachments/assets/2b50dcd0-b6ec-40c3-a333-88707ccdf469" />
+<img width="1916" height="1073" alt="3" src="https://github.com/user-attachments/assets/d60d8ada-1f51-4ea7-b645-c4138c3d5266" />
 
-3.<img width="1916" height="1073" alt="3" src="https://github.com/user-attachments/assets/d60d8ada-1f51-4ea7-b645-c4138c3d5266" />
+### ⚙️ Processing Pipeline
+<img width="1915" height="1037" alt="4" src="https://github.com/user-attachments/assets/c1020693-3d7a-484b-a9f3-ba934fa9d74d" />
 
-4.<img width="1915" height="1037" alt="4" src="https://github.com/user-attachments/assets/c1020693-3d7a-484b-a9f3-ba934fa9d74d" />
-
-5.<img width="1920" height="1080" alt="5" src="https://github.com/user-attachments/assets/0c79bedd-626a-4447-ace0-f80ac1c166ab" />
+### 🎬 Clip Results
+<img width="1920" height="1080" alt="5" src="https://github.com/user-attachments/assets/0c79bedd-626a-4447-ace0-f80ac1c166ab" />
 
 
 
@@ -49,31 +52,31 @@
     Bun runtime
     ffmpeg installed and available in PATH
   
-  Installation:
+  Installation(run in command line):
     git clone https://github.com/tarantriescoding/Automated-Content-Repurposing-version-1.0
     cd attentionx
     bun install
     bun run db:push
     bun run dev
-    Run the App
-
-Open in your browser:
-  http://localhost:3000
+    
+  Run the App
+  Open in your browser:
+    http://localhost:3000
 
 
 **💡 Use Cases**
-  Content creators & YouTubers
-  Podcasters
-  Educators & mentors
-  Social media managers
-  Marketing teams
+  1. Content creators & YouTubers
+  2. Podcasters
+  3. Educators & mentors
+  4. Social media managers
+  5. Marketing teams
 
 **📈 Future Improvements**
-  Multi-language transcription
-  Face tracking for smarter cropping
-  Auto-posting to social platforms
-  Virality score prediction
-  Team collaboration features
+  1. Multi-language transcription
+  2. Face tracking for smarter cropping
+  3. Auto-posting to social platforms
+  4. Virality score prediction
+  5. Team collaboration features
 
 **🤝 Contributing**
   Pull requests are welcome. For major changes, open an issue first to discuss what you’d like to change.
