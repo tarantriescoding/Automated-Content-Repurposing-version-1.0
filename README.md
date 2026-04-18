@@ -6,15 +6,20 @@ Content creators spend hours manually rewatching footage, identifying engaging m
 AttentionX automates the entire pipeline, turning long videos into ready-to-publish short-form content in minutes.
 
 **📸 Screenshots**
-1.<img width="1920" height="1080" alt="1" src="https://github.com/user-attachments/assets/ea1a91c6-2c06-499f-95c2-9049771ee4e4" />
+1.
+<img width="1920" height="1080" alt="1" src="https://github.com/user-attachments/assets/ea1a91c6-2c06-499f-95c2-9049771ee4e4" />
 
-2.<img width="1920" height="1080" alt="2" src="https://github.com/user-attachments/assets/2b50dcd0-b6ec-40c3-a333-88707ccdf469" />
+2.
+<img width="1920" height="1080" alt="2" src="https://github.com/user-attachments/assets/2b50dcd0-b6ec-40c3-a333-88707ccdf469" />
 
-3.<img width="1916" height="1073" alt="3" src="https://github.com/user-attachments/assets/d60d8ada-1f51-4ea7-b645-c4138c3d5266" />
+3.
+<img width="1916" height="1073" alt="3" src="https://github.com/user-attachments/assets/d60d8ada-1f51-4ea7-b645-c4138c3d5266" />
 
-4.<img width="1915" height="1037" alt="4" src="https://github.com/user-attachments/assets/c1020693-3d7a-484b-a9f3-ba934fa9d74d" />
+4.
+<img width="1915" height="1037" alt="4" src="https://github.com/user-attachments/assets/c1020693-3d7a-484b-a9f3-ba934fa9d74d" />
 
-5.<img width="1920" height="1080" alt="5" src="https://github.com/user-attachments/assets/0c79bedd-626a-4447-ace0-f80ac1c166ab" />
+5.
+<img width="1920" height="1080" alt="5" src="https://github.com/user-attachments/assets/0c79bedd-626a-4447-ace0-f80ac1c166ab" />
 
 
 
