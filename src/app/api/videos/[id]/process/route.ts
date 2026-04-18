@@ -80,9 +80,37 @@ async function processVideo(videoId: string) {
     const video = await db.video.findUnique({ where: { id: videoId } });
     if (!video) throw new Error("Video not found");
 
-    const videoPath = path.join(process.cwd(), "public", video.originalUrl);
-    if (!fs.existsSync(videoPath)) {
-      throw new Error(`Video file not found at ${videoPath}`);
+    // Resolve video file path - handle multiple locations:
+    // 1. Files in public/uploads/ (web uploads)
+    // 2. Files in upload/ directory (server-side imports)
+    // 3. Absolute paths (imported from anywhere)
+    let videoPath: string | null = null;
+
+    if (video.originalUrl.startsWith("/")) {
+      // Try public/ prefix first (web uploads like /uploads/xxx.mp4)
+      const publicPath = path.join(process.cwd(), "public", video.originalUrl);
+      if (fs.existsSync(publicPath)) {
+        videoPath = publicPath;
+      }
+    }
+
+    if (!videoPath && video.originalUrl.startsWith("/upload/")) {
+      // Try the upload/ directory (server imports like /upload/video.mp4)
+      const uploadPath = path.join(process.cwd(), video.originalUrl);
+      if (fs.existsSync(uploadPath)) {
+        videoPath = uploadPath;
+      }
+    }
+
+    if (!videoPath) {
+      // Try as absolute path
+      if (fs.existsSync(video.originalUrl)) {
+        videoPath = video.originalUrl;
+      }
+    }
+
+    if (!videoPath) {
+      throw new Error(`Video file not found for URL: ${video.originalUrl}`);
     }
 
     const videoBuffer = fs.readFileSync(videoPath);
