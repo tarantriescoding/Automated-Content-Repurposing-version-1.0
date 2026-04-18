@@ -6,7 +6,7 @@ Content creators spend hours manually rewatching footage, identifying engaging m
 AttentionX automates the entire pipeline, turning long videos into ready-to-publish short-form content in minutes.
 
 **📸 Screenshots**
-1. <img width="1920" height="1080" alt="1" src="https://github.com/user-attachments/assets/ea1a91c6-2c06-499f-95c2-9049771ee4e4" />
+1.<img width="1920" height="1080" alt="1" src="https://github.com/user-attachments/assets/ea1a91c6-2c06-499f-95c2-9049771ee4e4" />
 
 2.<img width="1920" height="1080" alt="2" src="https://github.com/user-attachments/assets/2b50dcd0-b6ec-40c3-a333-88707ccdf469" />
 
