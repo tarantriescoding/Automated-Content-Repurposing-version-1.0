@@ -7,20 +7,16 @@
 
 **📸 Screenshots**
 
-1.
-<img width="1920" height="1080" alt="1" src="https://github.com/user-attachments/assets/ea1a91c6-2c06-499f-95c2-9049771ee4e4" />
 
-2.
-<img width="1920" height="1080" alt="2" src="https://github.com/user-attachments/assets/2b50dcd0-b6ec-40c3-a333-88707ccdf469" />
+1.<img width="1920" height="1080" alt="1" src="https://github.com/user-attachments/assets/ea1a91c6-2c06-499f-95c2-9049771ee4e4" />
 
-3.
-<img width="1916" height="1073" alt="3" src="https://github.com/user-attachments/assets/d60d8ada-1f51-4ea7-b645-c4138c3d5266" />
+2.<img width="1920" height="1080" alt="2" src="https://github.com/user-attachments/assets/2b50dcd0-b6ec-40c3-a333-88707ccdf469" />
 
-4.
-<img width="1915" height="1037" alt="4" src="https://github.com/user-attachments/assets/c1020693-3d7a-484b-a9f3-ba934fa9d74d" />
+3.<img width="1916" height="1073" alt="3" src="https://github.com/user-attachments/assets/d60d8ada-1f51-4ea7-b645-c4138c3d5266" />
 
-5.
-<img width="1920" height="1080" alt="5" src="https://github.com/user-attachments/assets/0c79bedd-626a-4447-ace0-f80ac1c166ab" />
+4.<img width="1915" height="1037" alt="4" src="https://github.com/user-attachments/assets/c1020693-3d7a-484b-a9f3-ba934fa9d74d" />
+
+5.<img width="1920" height="1080" alt="5" src="https://github.com/user-attachments/assets/0c79bedd-626a-4447-ace0-f80ac1c166ab" />
 
 
 
@@ -48,39 +44,13 @@
 **🧠 AI Pipeline**
   _Upload → Transcription → Peak Detection → Clip Generation → Captions & Thumbnails → ✅ Ready_
 
-📂 Project Structure
-  src/
-  ├── app/
-  │   ├── page.tsx
-  │   ├── layout.tsx
-  │   └── api/
-  │       ├── videos/
-  │       └── clips/
-  ├── components/
-  │   ├── hero-section.tsx
-  │   ├── upload-zone.tsx
-  │   ├── processing-pipeline.tsx
-  │   ├── clip-results.tsx
-  │   ├── clip-card.tsx
-  │   ├── clip-detail.tsx
-  │   ├── clip-video-player.tsx
-  │   ├── phone-preview.tsx
-  │   └── ui/
-  ├── hooks/
-  │   └── use-toast.ts
-  └── lib/
-      ├── db.ts
-      ├── store.ts
-      ├── types.ts
-      └── utils.ts
-
 **⚙️ Getting Started**
   Prerequisites:
     Bun runtime
     ffmpeg installed and available in PATH
   
   Installation:
-    git clone https://github.com/<your-username>/attentionx.git
+    git clone https://github.com/tarantriescoding/Automated-Content-Repurposing-version-1.0
     cd attentionx
     bun install
     bun run db:push
