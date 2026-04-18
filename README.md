@@ -61,7 +61,7 @@
     
   ### Run the App
     Open in your browser:
-      http://localhost:3000
+      http://localhost:XXXX
 
 
 **💡 Use Cases**
