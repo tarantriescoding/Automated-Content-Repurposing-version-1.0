@@ -1,79 +1,26 @@
-# AttentionX Worklog
-
 ---
 Task ID: 1
-Agent: Main Orchestrator
-Task: Project setup, database schema, skill loading
+Agent: Main
+Task: Fix AttentionX processing pipeline - ASR format incompatibility and 30-second limit
 
 Work Log:
-- Explored project structure and dependencies
-- Loaded Video Understanding, ASR, LLM, and Image Generation skills
-- Designed and pushed Prisma schema with Video, Transcript, Clip models
-- Database synced successfully
+- Investigated processing errors by reading dev.log → Found root cause: ASR API returns "Audio format conversion failed: unsupported audio format: unknown, only WAV and WebM are supported"
+- The original code was sending raw MP4 video file to ASR, but ASR only accepts WAV/WebM audio
+- Also discovered ASR has a 30-second duration limit ("transcriptions文件时长限制为0-30秒")
+- Fixed processing pipeline with multiple improvements:
+  1. Added ffmpeg-based audio extraction (MP4 → WAV, 16kHz mono)
+  2. Implemented chunked ASR: splits audio into 25-second chunks for videos > 30s
+  3. Added VLM fallback: if ASR fails, uses Vision Language Model with video_url to analyze video content
+  4. Added ffprobe for accurate video duration detection
+  5. Fixed clip time validation (ensure start < end, within video duration)
+  6. Fixed JSON parsing resilience in video details API
+- Added "Quick Start with Sample Video" button to upload zone
+- Added resume feature: page loads existing processed videos on refresh
+- Cleaned up old error videos from database
 
 Stage Summary:
-- Database schema created with Video, Transcript, Clip models
-- All relevant AI skills loaded and documented
-- Ready to build frontend and backend
-
----
-Task ID: 4-b
-Agent: Backend API Developer
-Task: Build all backend API routes for AttentionX
-
-Work Log:
-- Created `public/uploads/` directory for video and thumbnail storage
-- Created POST `/api/videos/upload` route: handles FormData upload, validates file type, saves with UUID filename, creates Video DB record
-- Created GET `/api/videos` route: lists all videos with clip count and transcript status
-- Created GET `/api/videos/[id]` route: returns full video details with transcript and clips
-- Created POST `/api/videos/[id]/process` route: full async processing pipeline with 4 stages
-- Created GET `/api/clips/[id]` route: returns clip with parsed captions and parent video info
-- Created POST `/api/clips/[id]/thumbnail` route: regenerates thumbnail with emotion-aware prompts
-- All routes tested and verified
-
-Stage Summary:
-- 6 API route files created covering all CRUD and processing operations
-- Full video processing pipeline integrated with z-ai-web-dev-sdk (ASR, LLM, Image Generation)
-- Robust error handling with graceful fallbacks
-
----
-Task ID: 4-a
-Agent: Frontend Developer
-Task: Build the complete frontend UI for AttentionX
-
-Work Log:
-- Created types, store, and all UI components
-- Built hero section, upload zone, processing pipeline, clip cards, phone preview, clip detail, clip results
-- Dark theme with orange/amber accents
-- All shadcn/ui components used
-
-Stage Summary:
-- Complete frontend UI built with 8 component files + store + types
-- 3 views: Upload, Processing, Results
-- Lint passes, app compiles and renders successfully
-
----
-Task ID: 6
-Agent: Main Orchestrator
-Task: Integrate frontend with backend APIs
-
-Work Log:
-- Updated upload-zone.tsx to call real /api/videos/upload and /api/videos/[id]/process APIs
-- Added isUploading state with loading spinner during upload
-- Updated processing-pipeline.tsx to poll /api/videos/[id] every 3 seconds for real status
-- Mapped backend video statuses (transcribing, analyzing, generating, ready, error) to frontend processing stages
-- Updated clip-card.tsx to display real thumbnail images from API
-- Updated phone-preview.tsx with auto-playing captions and thumbnail support
-- Updated clip-detail.tsx with thumbnail regeneration button calling /api/clips/[id]/thumbnail
-- Fixed missing isDragging variable in upload-zone.tsx
-- Updated next.config.ts with image config and allowedDevOrigins
-- Added "How It Works" steps section to hero
-- Enhanced hero section with better visual hierarchy
-- All lint checks pass
-
-Stage Summary:
-- Full frontend-backend integration complete
-- Real API calls replace mock data
-- Polling mechanism for processing status
-- Thumbnail display and regeneration working
-- App is fully functional end-to-end
+- Root cause: MP4 format incompatible with ASR (only WAV/WebM supported) AND 30-second ASR limit
+- Solution: ffmpeg audio extraction + chunked ASR + VLM fallback
+- Processing pipeline now works end-to-end: upload → extract audio → chunked ASR → LLM analysis → caption generation → thumbnail generation
+- Successfully processed video.mp4 (85s) into 4 viral clips with thumbnails
+- Key files modified: src/app/api/videos/[id]/process/route.ts, src/app/api/videos/[id]/route.ts, src/components/upload-zone.tsx, src/app/page.tsx

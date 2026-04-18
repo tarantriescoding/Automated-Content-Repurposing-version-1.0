@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Zap } from "lucide-react";
 import { useAppStore } from "@/lib/store";
@@ -7,9 +8,120 @@ import { HeroSection } from "@/components/hero-section";
 import { UploadZone } from "@/components/upload-zone";
 import { ProcessingPipeline } from "@/components/processing-pipeline";
 import { ClipResults } from "@/components/clip-results";
+import type { ClipData } from "@/lib/types";
 
 export default function AttentionXPage() {
-  const { view } = useAppStore();
+  const {
+    view,
+    setView,
+    setCurrentVideo,
+    setProcessingStage,
+    setProcessingProgress,
+    setClips,
+  } = useAppStore();
+
+  // On mount, check if there are any existing videos to resume
+  useEffect(() => {
+    async function checkExistingVideos() {
+      try {
+        const res = await fetch("/api/videos");
+        if (!res.ok) return;
+
+        const { videos } = await res.json();
+        if (!videos || videos.length === 0) return;
+
+        // Find the most recent video
+        const latestVideo = videos[0];
+
+        if (latestVideo.status === "ready") {
+          // Load the completed video results
+          const detailRes = await fetch(`/api/videos/${latestVideo.id}`);
+          if (!detailRes.ok) return;
+          const { video } = await detailRes.json();
+
+          setCurrentVideo({
+            id: video.id,
+            filename: video.filename,
+            originalUrl: video.originalUrl,
+            duration: video.duration,
+            fileSize: video.fileSize,
+            status: video.status,
+            createdAt: video.createdAt,
+            updatedAt: video.updatedAt,
+          });
+
+          if (video.clips?.length > 0) {
+            const clipsData: ClipData[] = video.clips.map(
+              (clip: Record<string, unknown>) => ({
+                id: clip.id as string,
+                videoId: clip.videoId as string,
+                title: (clip.title as string) || "Untitled Clip",
+                hook: (clip.hook as string) || "",
+                startTime: (clip.startTime as number) || 0,
+                endTime: (clip.endTime as number) || 0,
+                sentimentScore: (clip.sentimentScore as number) || 0.5,
+                emotion:
+                  ((clip.emotion as string) || "neutral").charAt(0).toUpperCase() +
+                  ((clip.emotion as string) || "neutral").slice(1),
+                captions: Array.isArray(clip.captions)
+                  ? (clip.captions as Array<{ text: string; start: number; end: number }>)
+                  : [],
+                captionStyle: ((clip.captionStyle as string) || "karaoke") as
+                  | "karaoke"
+                  | "bold"
+                  | "minimal",
+                thumbnailUrl: (clip.thumbnailUrl as string) || "",
+                status: (clip.status as string) || "ready",
+                createdAt: (clip.createdAt as string) || new Date().toISOString(),
+              })
+            );
+            clipsData.sort((a, b) => b.sentimentScore - a.sentimentScore);
+            setClips(clipsData);
+            setProcessingStage("complete");
+            setProcessingProgress(100);
+            setView("results");
+          }
+        } else if (
+          latestVideo.status === "transcribing" ||
+          latestVideo.status === "analyzing" ||
+          latestVideo.status === "generating"
+        ) {
+          // Resume processing view
+          setCurrentVideo({
+            id: latestVideo.id,
+            filename: latestVideo.filename,
+            originalUrl: latestVideo.originalUrl,
+            duration: latestVideo.duration,
+            fileSize: latestVideo.fileSize,
+            status: latestVideo.status,
+            createdAt: latestVideo.createdAt,
+            updatedAt: latestVideo.updatedAt,
+          });
+
+          const stageMap: Record<string, string> = {
+            transcribing: "transcribing",
+            analyzing: "analyzing",
+            generating: "generating",
+          };
+          const progressMap: Record<string, number> = {
+            transcribing: 35,
+            analyzing: 60,
+            generating: 85,
+          };
+
+          setProcessingStage(
+            (stageMap[latestVideo.status] as "transcribing" | "analyzing" | "generating") || "transcribing"
+          );
+          setProcessingProgress(progressMap[latestVideo.status] || 35);
+          setView("processing");
+        }
+      } catch {
+        // Silently fail - user can always start fresh
+      }
+    }
+
+    checkExistingVideos();
+  }, [setView, setCurrentVideo, setProcessingStage, setProcessingProgress, setClips]);
 
   return (
     <div className="min-h-screen flex flex-col bg-zinc-950">

@@ -1,6 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
+function safeJsonParse(str: string, fallback: unknown = []) {
+  if (!str) return fallback;
+  if (typeof str !== "string") return str;
+  try {
+    return JSON.parse(str);
+  } catch {
+    return fallback;
+  }
+}
+
 export async function GET(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -31,12 +41,12 @@ export async function GET(
       transcript: video.transcript
         ? {
             ...video.transcript,
-            segments: JSON.parse(video.transcript.segments),
+            segments: safeJsonParse(video.transcript.segments, []),
           }
         : null,
       clips: video.clips.map((clip) => ({
         ...clip,
-        captions: JSON.parse(clip.captions),
+        captions: safeJsonParse(clip.captions, []),
       })),
     };
 

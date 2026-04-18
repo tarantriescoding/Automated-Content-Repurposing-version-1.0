@@ -9,6 +9,7 @@ import {
   X,
   AlertCircle,
   Loader2,
+  Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAppStore } from "@/lib/store";
@@ -44,6 +45,7 @@ export function UploadZone() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isQuickStarting, setIsQuickStarting] = useState(false);
 
   const validateFile = useCallback((file: File): boolean => {
     if (!ACCEPTED_TYPES.includes(file.type)) {
@@ -121,7 +123,6 @@ export function UploadZone() {
     });
 
     try {
-      // Step 1: Upload the video file
       const formData = new FormData();
       formData.append("video", uploadFile);
 
@@ -149,10 +150,10 @@ export function UploadZone() {
       setCurrentVideo(video);
       setProcessingProgress(15);
 
-      // Step 2: Switch to processing view
+      // Switch to processing view
       setView("processing");
 
-      // Step 3: Start the processing pipeline
+      // Start the processing pipeline
       addProcessingLog({
         timestamp: new Date().toLocaleTimeString(),
         message: "Starting AI processing pipeline...",
@@ -196,6 +197,91 @@ export function UploadZone() {
     clearProcessingLogs,
   ]);
 
+  // Quick start with the pre-uploaded video.mp4
+  const handleQuickStart = useCallback(async () => {
+    setIsQuickStarting(true);
+    clearProcessingLogs();
+    addProcessingLog({
+      timestamp: new Date().toLocaleTimeString(),
+      message: "Quick start: Importing sample video...",
+      type: "info",
+    });
+
+    try {
+      setProcessingStage("uploading");
+      setProcessingProgress(5);
+
+      // Import the video from the upload directory
+      const importRes = await fetch("/api/videos/import", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          filePath: "/home/z/my-project/upload/video.mp4",
+          fileName: "video.mp4",
+        }),
+      });
+
+      if (!importRes.ok) {
+        const errData = await importRes.json();
+        throw new Error(errData.error || "Import failed");
+      }
+
+      const { video } = await importRes.json();
+
+      addProcessingLog({
+        timestamp: new Date().toLocaleTimeString(),
+        message: `Video imported! ID: ${video.id}`,
+        type: "success",
+      });
+
+      setCurrentVideo(video);
+      setProcessingProgress(15);
+
+      // Switch to processing view
+      setView("processing");
+
+      addProcessingLog({
+        timestamp: new Date().toLocaleTimeString(),
+        message: "Starting AI processing pipeline...",
+        type: "info",
+      });
+
+      setProcessingStage("transcribing");
+      setProcessingProgress(20);
+
+      const processRes = await fetch(`/api/videos/${video.id}/process`, {
+        method: "POST",
+      });
+
+      if (!processRes.ok) {
+        const errData = await processRes.json();
+        throw new Error(errData.error || "Processing failed to start");
+      }
+
+      addProcessingLog({
+        timestamp: new Date().toLocaleTimeString(),
+        message: "AI processing pipeline started!",
+        type: "success",
+      });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Quick start failed";
+      setError(message);
+      addProcessingLog({
+        timestamp: new Date().toLocaleTimeString(),
+        message: `Error: ${message}`,
+        type: "warning",
+      });
+      setIsQuickStarting(false);
+    }
+  }, [
+    setView,
+    setProcessingStage,
+    setProcessingProgress,
+    setCurrentVideo,
+    addProcessingLog,
+    clearProcessingLogs,
+  ]);
+
   return (
     <section className="w-full max-w-3xl mx-auto px-4 sm:px-6 py-8">
       <motion.div
@@ -203,6 +289,40 @@ export function UploadZone() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.6 }}
       >
+        {/* Quick Start Button */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="mb-6"
+        >
+          <Button
+            onClick={handleQuickStart}
+            disabled={isQuickStarting || isUploading}
+            className="w-full bg-gradient-to-r from-orange-500/10 to-amber-500/10 border border-orange-500/30 text-orange-400 hover:from-orange-500/20 hover:to-amber-500/20 hover:border-orange-500/50 font-medium text-sm h-12"
+            variant="outline"
+          >
+            {isQuickStarting ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Importing & starting...
+              </>
+            ) : (
+              <>
+                <Zap className="w-4 h-4 mr-2" />
+                Quick Start with Sample Video
+              </>
+            )}
+          </Button>
+        </motion.div>
+
+        {/* Divider */}
+        <div className="flex items-center gap-3 mb-6">
+          <div className="flex-1 h-px bg-zinc-800" />
+          <span className="text-zinc-600 text-xs uppercase tracking-wider">or upload your own</span>
+          <div className="flex-1 h-px bg-zinc-800" />
+        </div>
+
         {/* Drag and Drop Zone */}
         <div
           onDragOver={handleDragOver}
