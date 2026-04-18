@@ -64,19 +64,19 @@
       http://localhost:XXXX
 
 
-**💡 Use Cases**
+## **💡 Use Cases**
   1. Content creators & YouTubers
   2. Podcasters
   3. Educators & mentors
   4. Social media managers
   5. Marketing teams
 
-**📈 Future Improvements**
+## **📈 Future Improvements**
   1. Multi-language transcription
   2. Face tracking for smarter cropping
   3. Auto-posting to social platforms
   4. Virality score prediction
   5. Team collaboration features
 
-**🤝 Contributing**
+## **🤝 Contributing**
   Pull requests are welcome. For major changes, open an issue first to discuss what you’d like to change.
