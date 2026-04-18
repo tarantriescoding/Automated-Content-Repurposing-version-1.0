@@ -24,19 +24,19 @@
 
 
 **🚀 What It Does**
-  📤 Upload long-form videos
-  🎙️ AI transcribes audio with word-level timestamps
-  🎯 Detects emotional peaks & high-engagement moments
-  ✂️ Automatically generates short clips
-  📱 Exports vertical (9:16) videos with captions
+  1. 📤 Upload long-form videos
+  2. 🎙️ AI transcribes audio with word-level timestamps
+  3. 🎯 Detects emotional peaks & high-engagement moments
+  4. ✂️ Automatically generates short clips
+  5. 📱 Exports vertical (9:16) videos with captions
 
 
 **✨ Features**
   1. Emotional Peak Detection: AI analyzes transcript sentiment and narrative flow to identify viral-worthy moments
   2. Dynamic Captions: Choose from 3 styles:
-    🎤 Karaoke (word-by-word highlight)
-    💪 Bold (sentence emphasis)
-    ✨ Minimal (clean subtitles)
+    a. 🎤 Karaoke (word-by-word highlight)
+    b. 💪 Bold (sentence emphasis)
+    c. ✨ Minimal (clean subtitles)
   3. Timestamp-Based Highlights: Clips include precise start/end times with emotion labels & sentiment scores
   4. Smart Vertical Crop: Automatically converts clips to 9:16 format for TikTok, Reels & Shorts
   5. Phone Mockup Preview: Preview clips inside a realistic mobile frame
@@ -48,20 +48,20 @@
   _Upload → Transcription → Peak Detection → Clip Generation → Captions & Thumbnails → ✅ Ready_
 
 **⚙️ Getting Started**
-  Prerequisites:
+  ### Prerequisites:
     Bun runtime
     ffmpeg installed and available in PATH
   
-  Installation(run in command line):
+  ### Installation(run in command line):
     git clone https://github.com/tarantriescoding/Automated-Content-Repurposing-version-1.0
     cd attentionx
     bun install
     bun run db:push
     bun run dev
     
-  Run the App
-  Open in your browser:
-    http://localhost:3000
+  ### Run the App
+    Open in your browser:
+      http://localhost:3000
 
 
 **💡 Use Cases**
