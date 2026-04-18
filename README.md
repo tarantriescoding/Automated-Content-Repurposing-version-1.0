@@ -1,11 +1,11 @@
-**⚡ AttentionX (Automated Content Repurposing System)**
+## **⚡ AttentionX (Automated Content Repurposing System)**
   AI-Powered Automated Content Repurposing Enginr transforms long-form videos into viral short-form clips with emotional peak detection, dynamic captions, and smart vertical cropping — all powered by AI.
   
-**🔥 Overview**
+## **🔥 Overview**
   Content creators spend hours manually rewatching footage, identifying engaging moments, clipping segments, reframing to vertical, and adding captions.
   AttentionX automates the entire pipeline, turning long videos into ready-to-publish short-form content in minutes.
 
-**📸 Screenshots**
+## **📸 Screenshots**
 
 
 ### 🏠 Landing Page
@@ -23,7 +23,7 @@
 
 
 
-**🚀 What It Does**
+## **🚀 What It Does**
   1. 📤 Upload long-form videos
   2. 🎙️ AI transcribes audio with word-level timestamps
   3. 🎯 Detects emotional peaks & high-engagement moments
@@ -31,7 +31,7 @@
   5. 📱 Exports vertical (9:16) videos with captions
 
 
-**✨ Features**
+## **✨ Features**
   1. Emotional Peak Detection: AI analyzes transcript sentiment and narrative flow to identify viral-worthy moments
   2. Dynamic Captions: Choose from 3 styles:
     a. 🎤 Karaoke (word-by-word highlight)
@@ -44,10 +44,10 @@
   7. Session Resumption: Resume processing even after closing the tab
   8. Real-Time Pipeline UI: Live progress tracking with animated processing stages
 
-**🧠 AI Pipeline**
+## **🧠 AI Pipeline**
   _Upload → Transcription → Peak Detection → Clip Generation → Captions & Thumbnails → ✅ Ready_
 
-**⚙️ Getting Started**
+## **⚙️ Getting Started**
   ### Prerequisites:
     Bun runtime
     ffmpeg installed and available in PATH
